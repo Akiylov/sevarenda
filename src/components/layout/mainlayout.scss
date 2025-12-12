@@ -1,0 +1,48 @@
+@use "../../styles/global-breakpoints.scss" as bp;
+
+.layout {
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden;
+
+  .header {
+    flex: 0 0 auto;
+    padding: 0 5px;
+    border-bottom: 1px solid var(--border-gray);
+  }
+
+  .content {
+    position: relative;
+    background-color: var(--bg-main);
+    flex: 1 1 auto;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+
+  .footer {
+    border-top: 1px solid var(--border-gray);
+    flex: 0 0 auto;
+    padding: 0 5px;
+  }
+
+  @include bp.mobile {
+    width: 100%;
+  }
+  @include bp.tablet {
+  }
+  @include bp.laptop {
+    width: 85%;
+  }
+  @include bp.desktop {
+    width: 80%;
+  }
+}

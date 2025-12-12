@@ -1,0 +1,82 @@
+@use "./../../../styles/global-breakpoints.scss" as bp;
+
+.searchpage {
+  padding: 5px;
+
+  .cardsbox {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 4px;
+  }
+
+  .card {
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    overflow: hidden;
+    background: #fff;
+  }
+
+  .card__image {
+    position: relative;
+    width: 100%;
+    min-height: 120px;
+    background-color: #d1d1d1;
+  }
+  .card__image-img {
+    padding: 2px;
+    object-fit: cover;
+    aspect-ratio: 16 / 9;
+    width: 100%;
+    height: 100%;
+    border-radius: 8px 8px 0 0;
+  }
+
+  .card__info {
+    padding: 10px;
+    text-align: center;
+  }
+
+  .card__info-title {
+    font-size: 16px;
+    font-weight: 600;
+  }
+
+  .card__info-description {
+    font-size: 14px;
+    color: #6b7280;
+  }
+  // responsive styles
+  @include bp.mobile {
+  }
+  @include bp.tablet {
+    .card__image {
+      min-height: 180px;
+    }
+  }
+  @include bp.laptop {
+    .cardsbox {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 4px;
+    }
+    .card__image {
+      position: relative;
+      width: 100%;
+      min-height: 200px;
+      background-color: #d1d1d1;
+    }
+  }
+  @include bp.desktop {
+    .cardsbox {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 4px;
+    }
+    .card__image {
+      position: relative;
+      width: 100%;
+      min-height: 200px;
+      background-color: #d1d1d1;
+    }
+  }
+}
