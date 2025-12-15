@@ -2,8 +2,10 @@
 import Image from "next/image";
 import React from "react";
 import "./searchpage.scss";
+import { useRouter } from "next/navigation";
 
 const SearchPage = () => {
+  const route = useRouter();
   const categories = [
     {
       id: 1,
@@ -11,7 +13,7 @@ const SearchPage = () => {
       image:
         "https://images.squarespace-cdn.com/content/v1/542deba2e4b03f3f6aa01b61/1483572609617-VSG0XV0XIM51VZRH50CT/image-asset.jpeg",
       count: 120,
-      path: "/search/expolere/dishes",
+      path: "/gallery/dishes",
     },
     {
       id: 2,
@@ -19,7 +21,7 @@ const SearchPage = () => {
       image:
         "https://i.pinimg.com/1200x/88/ac/0d/88ac0d1d4fe4986e68865a4b243f9c2b.jpg",
       count: 85,
-      path: "/search/chairs",
+      path: "/gallery/chairs",
     },
     {
       id: 3,
@@ -27,7 +29,7 @@ const SearchPage = () => {
       image:
         "https://i.pinimg.com/1200x/1a/30/0c/1a300cc290ca88c9c2459ebe32a2999a.jpg",
       count: 64,
-      path: "/search/tables",
+      path: "/gallery/tables",
     },
     {
       id: 4,
@@ -35,7 +37,7 @@ const SearchPage = () => {
       image:
         "https://i.pinimg.com/1200x/c1/4a/1a/c14a1a414853d77d4c403b551b010bf2.jpg",
       count: 30,
-      path: "/search/umbrellas",
+      path: "/gallery/umbrellas",
     },
     {
       id: 5,
@@ -43,7 +45,7 @@ const SearchPage = () => {
       image:
         "https://i.pinimg.com/1200x/4d/64/40/4d644007c88555409123df4c572e4103.jpg",
       count: 50,
-      path: "/search/dishes",
+      path: "/gallery/dishes",
     },
     {
       id: 6,
@@ -51,7 +53,7 @@ const SearchPage = () => {
       image:
         "https://i.pinimg.com/736x/5c/fc/c9/5cfcc9171fa0f8cc608b8f9b550b5e76.jpg",
       count: 25,
-      path: "/search/chairs",
+      path: "/gallery/chairs",
     },
     {
       id: 7,
@@ -59,7 +61,7 @@ const SearchPage = () => {
       image:
         "https://i.pinimg.com/1200x/c1/b2/68/c1b268b909267b6219dffda13e0196c9.jpg",
       count: 12,
-      path: "/search/combo",
+      path: "/gallery/combo",
     },
   ];
   return (
@@ -67,7 +69,11 @@ const SearchPage = () => {
       <div className="searchpage">
         <div className="cardsbox">
           {categories.map((category) => (
-            <div className="card" key={category.id}>
+            <div
+              className="card"
+              key={category.id}
+              onClick={() => route.push(category.path)}
+            >
               <div className="card__image">
                 <Image
                   fill
