@@ -1,0 +1,159 @@
+.highlights {
+  background-color: #fff;
+  padding: 0 5px 0 10px;
+  position: relative;
+
+  .titleBox {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 15px;
+    h4 {
+      margin: 0;
+      font-size: 16px;
+    }
+  }
+
+  &__container {
+    display: grid;
+    gap: 15px 50px;
+    cursor: grab;
+
+    &:active {
+      cursor: grabbing;
+    }
+    &::-webkit-scrollbar {
+      display: none;
+    }
+
+    &.oneRow {
+      display: flex;
+      gap: 10px;
+    }
+  }
+
+  &__highlight {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 70px;
+    user-select: none;
+
+    &Img {
+      position: relative;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 1px solid #ddd;
+      margin-bottom: 6px;
+      background: #f9f9f9;
+
+      img {
+        object-fit: cover;
+      }
+    }
+
+    p {
+      font-size: 12px;
+      color: #333;
+      margin: 0;
+      text-align: center;
+      width: 100%;
+    }
+
+    &.active {
+      p {
+        color: #0a84ff;
+        font-weight: 600;
+      }
+      .highlights__highlightImg {
+        border: 2px solid #0a84ff;
+      }
+    }
+  }
+}
+
+// Global yordamchi klasslar
+.iconBox {
+  width: 34px;
+  height: 34px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+.check {
+  position: absolute;
+  bottom: 2px;
+  right: 2px;
+  width: 16px;
+  height: 16px;
+  background: #0a84ff;
+  border-radius: 50%;
+  border: 2px solid #fff;
+  z-index: 2;
+}
+
+// Modal stillari
+.modalOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  z-index: 1000;
+}
+
+.modalBox {
+  position: fixed;
+  top: 10%;
+  left: 5%;
+  transform: translateX(-10%, -10%);
+  background: #fff;
+  width: 90%;
+  max-width: 720px;
+  max-height: 80vh;
+  overflow-y: auto;
+  border-radius: 12px;
+  padding: 16px;
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin: 20px 0;
+  }
+
+  .gridItem {
+    position: relative;
+    aspect-ratio: 1 / 1;
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid #eee;
+
+    &.active {
+      border: 2px solid #0a84ff;
+    }
+    img {
+      object-fit: cover;
+    }
+  }
+
+  .modalButtons {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+    button {
+      padding: 8px 16px;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+    }
+    .save {
+      background: #0a84ff;
+      color: white;
+    }
+  }
+}
