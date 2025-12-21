@@ -4,27 +4,50 @@ import React, { useState } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import ScrollContainer from "react-indiana-drag-scroll";
-import { FaHamburger } from "react-icons/fa";
-import "./filterSection.scss"; // Oddiy import
-import defaultImg from "./../../../../../../../public/1080х1400.png";
 import { FaList } from "react-icons/fa6";
-const highlights = ["Stullar", "Stollar", "Zontiklar", "1", "2", "3", "4"];
+import "./filterSection.scss";
+import defaultImg from "./../../../../../../../public/1080х1400.png";
 
-const HighLights = () => {
+type HighLightsProps = {
+  productData: any[];
+  onSelectionChange?: (selected: string[]) => void;
+};
+
+const HighLights = ({ productData, onSelectionChange }: HighLightsProps) => {
   const [selected, setSelected] = useState<string[]>([]);
   const [open, setOpen] = useState(false);
   const [modalSelected, setModalSelected] = useState<string[]>([]);
 
-  const toggle = (item: string, isModal = false) => {
-    const targetSet = isModal ? setModalSelected : setSelected;
+  // productData'dan unique subCategory'larni olish
+  const uniqueSubCategories = Array.from(
+    new Set(productData.map((product) => product.subCategory))
+  );
 
-    targetSet((prev) =>
-      prev.includes(item) ? prev.filter((x) => x !== item) : [...prev, item]
-    );
+  const toggle = (item: string, isModal = false) => {
+    if (isModal) {
+      setModalSelected((prev) =>
+        prev.includes(item) ? prev.filter((x) => x !== item) : [...prev, item]
+      );
+    } else {
+      setSelected((prev) => {
+        const newSelection = prev.includes(item)
+          ? prev.filter((x) => x !== item)
+          : [...prev, item];
+
+        // Parent'ga xabar berish
+        if (onSelectionChange) {
+          onSelectionChange(newSelection);
+        }
+        return newSelection;
+      });
+    }
   };
 
   const handleSave = () => {
     setSelected(modalSelected);
+    if (onSelectionChange) {
+      onSelectionChange(modalSelected);
+    }
     setOpen(false);
   };
 
@@ -32,9 +55,6 @@ const HighLights = () => {
     setModalSelected(selected);
     setOpen(false);
   };
-
-  // 9 tadan ko'p bo'lsa ikki qatorli klass qo'shiladi
-  const isTwoRows = highlights.length >= 9;
 
   return (
     <>
@@ -57,8 +77,11 @@ const HighLights = () => {
           vertical={false}
           activationDistance={5}
         >
-          {highlights.map((item, i) => {
+          {uniqueSubCategories.map((item, i) => {
             const active = selected.includes(item);
+            const productWithThisSubCategory = productData.find(
+              (p) => p.subCategory === item
+            );
             return (
               <motion.div
                 key={item + i}
@@ -67,7 +90,12 @@ const HighLights = () => {
                 onClick={() => toggle(item)}
               >
                 <div className="highlights__highlightImg">
-                  <Image src={defaultImg} alt={item} fill sizes="60px" />
+                  <Image
+                    src={productWithThisSubCategory?.subImage || defaultImg}
+                    alt={item}
+                    fill
+                    sizes="60px"
+                  />
                   {active && <div className="check"></div>}
                 </div>
                 <p>{item}</p>
@@ -77,7 +105,7 @@ const HighLights = () => {
         </ScrollContainer>
       </div>
 
-      {open && (
+      {/* {open && (
         <div className="modalOverlay" onClick={handleCancel}>
           <motion.div
             className="modalBox"
@@ -105,7 +133,7 @@ const HighLights = () => {
             </div>
           </motion.div>
         </div>
-      )}
+      )} */}
     </>
   );
 };

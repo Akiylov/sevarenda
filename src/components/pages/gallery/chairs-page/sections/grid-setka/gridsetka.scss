@@ -22,6 +22,20 @@
       object-fit: cover;
       background-position: center;
     }
+
+    .image-counter {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      background-color: rgba(0, 0, 0, 0.6);
+      color: white;
+      padding: 4px 8px;
+      border-radius: 12px;
+      font-size: 10px;
+      font-weight: 600;
+      z-index: 10;
+      backdrop-filter: blur(4px);
+    }
   }
 
   @include bp.tablet {

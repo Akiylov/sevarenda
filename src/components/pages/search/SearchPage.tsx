@@ -13,7 +13,7 @@ const SearchPage = () => {
       image:
         "https://images.squarespace-cdn.com/content/v1/542deba2e4b03f3f6aa01b61/1483572609617-VSG0XV0XIM51VZRH50CT/image-asset.jpeg",
       count: 120,
-      path: "/gallery/dishes",
+      path: "/gallery/chairs",
     },
     {
       id: 2,
@@ -29,7 +29,7 @@ const SearchPage = () => {
       image:
         "https://i.pinimg.com/1200x/1a/30/0c/1a300cc290ca88c9c2459ebe32a2999a.jpg",
       count: 64,
-      path: "/gallery/tables",
+      path: "/gallery/chairs",
     },
     {
       id: 4,
@@ -37,7 +37,7 @@ const SearchPage = () => {
       image:
         "https://i.pinimg.com/1200x/c1/4a/1a/c14a1a414853d77d4c403b551b010bf2.jpg",
       count: 30,
-      path: "/gallery/umbrellas",
+      path: "/gallery/chairs",
     },
     {
       id: 5,
@@ -45,7 +45,7 @@ const SearchPage = () => {
       image:
         "https://i.pinimg.com/1200x/4d/64/40/4d644007c88555409123df4c572e4103.jpg",
       count: 50,
-      path: "/gallery/dishes",
+      path: "/gallery/chairs",
     },
     {
       id: 6,
@@ -61,7 +61,7 @@ const SearchPage = () => {
       image:
         "https://i.pinimg.com/1200x/c1/b2/68/c1b268b909267b6219dffda13e0196c9.jpg",
       count: 12,
-      path: "/gallery/combo",
+      path: "/gallery/chairs",
     },
   ];
   return (
@@ -72,7 +72,7 @@ const SearchPage = () => {
             <div
               className="card"
               key={category.id}
-              onClick={() => route.push(category.path)}
+              onClick={() => route.push(`${category.path}?id=${category.id}`)}
             >
               <div className="card__image">
                 <Image
