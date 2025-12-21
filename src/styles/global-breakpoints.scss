@@ -1,27 +1,48 @@
-// /* Mobil */1
+/* Mobile - asosiy stillar shu yerda bo'ladi */
 @mixin mobile {
   @media (max-width: 480px) {
     @content;
   }
 }
 
-/* Tablet */
+/* Tablet - 481px dan yuqori */
+@mixin mobileLarge {
+  @media (min-width: 481px) {
+    @content;
+  }
+}
+
+/* Laptop - 768px dan yuqori */
 @mixin tablet {
-  @media (min-width: 481px) and (max-width: 768px) {
+  @media (min-width: 768px) {
     @content;
   }
 }
 
-/* Laptop */
+/* Desktop - 992px dan yuqori */
 @mixin laptop {
-  @media (min-width: 769px) and (max-width: 992px) {
+  @media (min-width: 992px) {
     @content;
   }
 }
 
-/* Desktop */
+/* Large Desktop - 1200px dan yuqori */
 @mixin desktop {
-  @media (min-width: 993px) and (max-width: 1600px) {
+  @media (min-width: 1200px) {
     @content;
   }
 }
+// how to use
+// @use "../../styles/global-breakpoints.scss" as bp;
+
+//  @include bp.mobile {
+//     width: 100%;
+//   }
+//   @include bp.tablet {
+//   }
+//   @include bp.laptop {
+//     width: 85%;
+//   }
+//   @include bp.desktop {
+//     width: 80%;
+//   }

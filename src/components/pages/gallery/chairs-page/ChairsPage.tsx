@@ -1,10 +1,9 @@
 "use client";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef } from "react";
 import "./chairspage.scss";
 import BigSlider from "./sections/big-slider/BigSlider";
 import FilterSection from "./sections/filter-section/FilterSection";
-import defimage from "../../../../../public/ess.png";
-import Image from "next/image";
+import GridSetka from "./sections/grid-setka/GridSetka";
 
 const ChairsPage = () => {
   const filterRef = useRef<HTMLDivElement>(null);
@@ -19,37 +18,9 @@ const ChairsPage = () => {
         <FilterSection />
       </div>
 
-      <div className="contentsetka">
-        <div className="image-container">
-          <Image src={defimage} alt="Chair" style={{ objectFit: "cover" }} />
-        </div>
-        <div className="image-container">
-          <Image src={defimage} alt="Chair" style={{ objectFit: "cover" }} />
-        </div>
-        <div className="image-container">
-          <Image src={defimage} alt="Chair" style={{ objectFit: "cover" }} />
-        </div>
-        <div className="image-container">
-          <Image src={defimage} alt="Chair" style={{ objectFit: "cover" }} />
-        </div>
-        <div className="image-container">
-          <Image src={defimage} alt="Chair" style={{ objectFit: "cover" }} />
-        </div>
-        <div className="image-container">
-          <Image src={defimage} alt="Chair" style={{ objectFit: "cover" }} />
-        </div>
-        <div className="image-container">
-          <Image src={defimage} alt="Chair" style={{ objectFit: "cover" }} />
-        </div>
-        <div className="image-container">
-          <Image src={defimage} alt="Chair" style={{ objectFit: "cover" }} />
-        </div>
-        <div className="image-container">
-          <Image src={defimage} alt="Chair" style={{ objectFit: "cover" }} />
-        </div>
-        <div className="image-container">
-          <Image src={defimage} alt="Chair" style={{ objectFit: "cover" }} />
-        </div>
+      {/* grid setka */}
+      <div>
+        <GridSetka />
       </div>
     </div>
   );

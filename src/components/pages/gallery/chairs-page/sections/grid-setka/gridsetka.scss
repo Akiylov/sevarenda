@@ -1,0 +1,34 @@
+@use "../../../../../../styles/global-breakpoints.scss" as bp;
+
+.contentsetka {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px;
+  background-color: rgba(128, 128, 128, 0.187);
+  .image-container {
+    background-color: royalblue;
+    display: flex;
+    align-items: center;
+    position: relative; // BU JUDA MUHIM: fill ishlashi uchun
+    // min-height: 180px;
+    // max-height: 490px; // Balandlik berilmasa, rasm 0px bo'lib qoladi
+    max-height: calc(100vw / 2 * 0.85);
+    width: 100%;
+    overflow: hidden;
+    z-index: 2;
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      background-position: center;
+    }
+  }
+
+  @include bp.tablet {
+    grid-template-columns: repeat(4, 1fr);
+    .image-container {
+      background-color: rgba(102, 51, 153, 0.486);
+      max-height: calc(100vw / 3 * 0.75);
+    }
+  }
+}

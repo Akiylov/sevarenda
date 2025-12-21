@@ -1,23 +1,8 @@
+@use "../../../../styles/global-breakpoints.scss" as bp;
+
 .filterNormal {
   position: relative;
 }
 
 .filterFixed {
-}
-.contentsetka {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 2px;
-  background-color: rgba(128, 128, 128, 0.187);
-  .image-container {
-    position: relative; // BU JUDA MUHIM: fill ishlashi uchun
-    max-height: 490px; // Balandlik berilmasa, rasm 0px bo'lib qoladi
-    width: 100%;
-    overflow: hidden;
-    z-index: 2;
-    img {
-      object-fit: cover;
-      background-position: center;
-    }
-  }
 }
