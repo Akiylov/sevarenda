@@ -1,4 +1,6 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 // /* eslint-disable @typescript-eslint/no-explicit-any */
+
 // "use client";
 
 // import React, { useState } from "react";
@@ -9,12 +11,13 @@
 
 // import "swiper/css";
 // import "photoswipe/dist/photoswipe.css";
+// import "./gridPost.scss";
 
 // const DESCRIPTION_LIMIT = 80;
 
 // const GridPost = ({ productData }: { productData: Product[] }) => {
 //   return (
-//     <div className="mx-auto max-w-[470px] flex flex-col gap-8 py-8">
+//     <div className="grid-post">
 //       {productData.map((product) => (
 //         <PostCard key={product.id} product={product} />
 //       ))}
@@ -34,13 +37,17 @@
 //     : description.slice(0, DESCRIPTION_LIMIT);
 
 //   return (
-//     <article className="border border-gray-200 bg-white">
+//     <article className="post-card">
 //       {/* Header */}
-//       <header className="flex items-center gap-3 px-4 py-3">
-//         <div className="relative w-8 h-8 rounded-full overflow-hidden bg-gray-300">
-//           <Image src={product.subImage} alt={product.subCategory} fill />
+//       <header className="post-card__header">
+//         <div className="post-card__avatar">
+//           <Image
+//             src={product.subImage}
+//             alt={product.subCategory}
+//             className="object-cover"
+//           />
 //         </div>
-//         <span className="text-sm font-semibold">{product.name}</span>
+//         <span className="post-card__username">{product.name}</span>
 //       </header>
 
 //       {/* Media */}
@@ -52,16 +59,16 @@
 //           bgOpacity: 0.9,
 //         }}
 //       >
-//         <div className="relative aspect-square bg-black">
+//         <div className="post-card__media">
 //           {product.images.length > 1 && (
-//             <div className="absolute top-3 right-3 z-10 rounded-full bg-black/70 px-2 py-0.5 text-xs text-white">
+//             <div className="post-card__counter">
 //               {activeIndex + 1}/{product.images.length}
 //             </div>
 //           )}
 
 //           <Swiper
 //             onSlideChange={(swiper) => setActiveIndex(swiper.activeIndex)}
-//             className="h-full w-full"
+//             className="post-card__swiper"
 //           >
 //             {product.images.map((src, index) => {
 //               const isObject = typeof src !== "string";
@@ -86,14 +93,9 @@
 //                       <div
 //                         ref={ref}
 //                         onClick={open}
-//                         className="relative w-full h-full cursor-pointer"
+//                         className="post-card__image-wrapper"
 //                       >
-//                         <Image
-//                           src={src}
-//                           alt={`${product.name}-${index}`}
-//                           fill
-//                           className="object-cover"
-//                         />
+//                         <Image src={src} alt={`${product.name}-${index}`} />
 //                       </div>
 //                     )}
 //                   </Item>
@@ -105,17 +107,14 @@
 //       </Gallery>
 
 //       {/* Actions */}
-//       <div className="px-4 py-2 flex gap-4 text-xl">❤️ 💬 📤 🔖</div>
+//       <div className="post-card__actions">❤️ 💬 📤 🔖</div>
 
 //       {/* Description */}
-//       <div className="px-4 pb-4 text-sm">
-//         <span className="font-semibold mr-1">{product.name}</span>
+//       <div className="post-card__description">
+//         <span className="post-card__bold">{product.name}</span>
 //         <span>{visibleText}</span>
 //         {!expanded && (
-//           <button
-//             onClick={() => setExpanded(true)}
-//             className="ml-1 text-gray-500 text-sm"
-//           >
+//           <button onClick={() => setExpanded(true)} className="post-card__more">
 //             yana…
 //           </button>
 //         )}
@@ -125,61 +124,91 @@
 // };
 
 // export default GridPost;
-/* eslint-disable @typescript-eslint/no-explicit-any */
-"use client";
-
-import React, { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Gallery, Item } from "react-photoswipe-gallery";
-import type { Product } from "@/src/source/inner";
-
 import "swiper/css";
 import "photoswipe/dist/photoswipe.css";
 import "./gridPost.scss";
+import type { Product } from "@/src/source/inner";
 
 const DESCRIPTION_LIMIT = 80;
 
-const GridPost = ({ productData }: { productData: Product[] }) => {
+const GridPost = ({
+  productData,
+  initialIndex = 0,
+}: {
+  productData: Product[];
+  initialIndex?: number;
+}) => {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [activeIndices, setActiveIndices] = useState<number[]>(() =>
+    productData.map(() => 0)
+  );
+
+  useEffect(() => {
+    if (containerRef.current) {
+      const children = containerRef.current.children;
+      if (children[initialIndex]) {
+        (children[initialIndex] as HTMLElement).scrollIntoView({
+          behavior: "smooth",
+          block: "center",
+        });
+      }
+    }
+  }, [initialIndex]);
+
   return (
-    <div className="grid-post">
-      {productData.map((product) => (
-        <PostCard key={product.id} product={product} />
+    <div className="grid-post" ref={containerRef}>
+      {productData.map((product, index) => (
+        <PostCard
+          key={product.id}
+          product={product}
+          activeIndex={activeIndices[index]}
+          setActiveIndex={(i: number) =>
+            setActiveIndices((prev) => {
+              const copy = [...prev];
+              copy[index] = i;
+              return copy;
+            })
+          }
+        />
       ))}
     </div>
   );
 };
 
-const PostCard = ({ product }: { product: Product }) => {
+const PostCard = ({
+  product,
+  activeIndex,
+  setActiveIndex,
+}: {
+  product: Product;
+  activeIndex: number;
+  setActiveIndex: (i: number) => void;
+}) => {
   const [expanded, setExpanded] = useState(false);
-  const [activeIndex, setActiveIndex] = useState(0);
-
   const description =
     "Bu mahsulot haqida batafsil maʼlumot. Instagram postlaridagi kabi matn qisqartirilgan holda ko‘rsatiladi.";
-
   const visibleText = expanded
     ? description
     : description.slice(0, DESCRIPTION_LIMIT);
 
   return (
     <article className="post-card">
-      {/* Header */}
       <header className="post-card__header">
         <div className="post-card__avatar">
-          <Image src={product.subImage} alt={product.subCategory} fill />
+          <Image
+            src={product.subImage}
+            alt={product.subCategory}
+            className="object-cover"
+          />
         </div>
         <span className="post-card__username">{product.name}</span>
       </header>
 
-      {/* Media */}
-      <Gallery
-        options={{
-          imageClickAction: "zoom",
-          tapAction: "toggle-controls",
-          doubleTapAction: "zoom",
-          bgOpacity: 0.9,
-        }}
-      >
+      <Gallery>
         <div className="post-card__media">
           {product.images.length > 1 && (
             <div className="post-card__counter">
@@ -191,9 +220,9 @@ const PostCard = ({ product }: { product: Product }) => {
             onSlideChange={(swiper) => setActiveIndex(swiper.activeIndex)}
             className="post-card__swiper"
           >
-            {product.images.map((src, index) => {
+            {product.images.map((src, idx) => {
               const isObject = typeof src !== "string";
-              const original = isObject ? (src as any).src : src;
+              const original = isObject ? (src as any).src : (src as string);
               const thumbnail = original;
               const width =
                 isObject && "width" in (src as any) ? (src as any).width : 1080;
@@ -202,11 +231,21 @@ const PostCard = ({ product }: { product: Product }) => {
                   ? (src as any).height
                   : 1080;
 
+              // ensure Item receives plain string (react-photoswipe-gallery expects string)
+              const originalStr =
+                typeof original === "string"
+                  ? original
+                  : (original as any).src ?? undefined;
+              const thumbnailStr =
+                typeof thumbnail === "string"
+                  ? thumbnail
+                  : (thumbnail as any).src ?? undefined;
+
               return (
-                <SwiperSlide key={index}>
+                <SwiperSlide key={idx}>
                   <Item
-                    original={original}
-                    thumbnail={thumbnail}
+                    original={originalStr}
+                    thumbnail={thumbnailStr}
                     width={width}
                     height={height}
                   >
@@ -216,7 +255,7 @@ const PostCard = ({ product }: { product: Product }) => {
                         onClick={open}
                         className="post-card__image-wrapper"
                       >
-                        <Image src={src} alt={`${product.name}-${index}`} />
+                        <Image src={src} alt={`${product.name}-${idx}`} />
                       </div>
                     )}
                   </Item>
@@ -227,10 +266,8 @@ const PostCard = ({ product }: { product: Product }) => {
         </div>
       </Gallery>
 
-      {/* Actions */}
       <div className="post-card__actions">❤️ 💬 📤 🔖</div>
 
-      {/* Description */}
       <div className="post-card__description">
         <span className="post-card__bold">{product.name}</span>
         <span>{visibleText}</span>

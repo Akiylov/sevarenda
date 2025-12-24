@@ -19,32 +19,23 @@ type GridSetkaProps = {
   productData: any[];
 };
 
-const GridSetka = ({ productData }: GridSetkaProps) => {
-  const dataImages = productData.map((product) => product.images);
-  console.log(dataImages);
-  console.log(productData);
-  const getImageSrc = (index: number) => {
-    switch (index % 3) {
-      case 0:
-        return defimage;
-      case 1:
-        return def1080;
-      case 2:
-        return def1900;
-      default:
-        return defimage;
-    }
-  };
+const GridSetka = ({
+  productData,
+  onSelectImage,
+}: {
+  productData: any[];
+  onSelectImage: (index: any) => void;
+}) => {
   return (
     <div className="contentsetka">
       {productData.map((product, index) => (
-        <div className="image-container" key={index}>
+        <div
+          key={index}
+          className="image-container"
+          onClick={() => onSelectImage(index)}
+        >
           <Image
-            src={
-              product.images && product.images.length > 0
-                ? product.images[0]
-                : getImageSrc(index)
-            }
+            src={product.images?.[0] || def1080}
             alt={product.name}
             style={{ objectFit: "cover" }}
           />
@@ -56,5 +47,4 @@ const GridSetka = ({ productData }: GridSetkaProps) => {
     </div>
   );
 };
-
 export default GridSetka;

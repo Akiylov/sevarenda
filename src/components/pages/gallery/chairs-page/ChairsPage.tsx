@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import React, { useRef, useState } from "react";
 import "./chairspage.scss";
@@ -16,7 +17,10 @@ const ChairsPage = () => {
   const [selectedSubCategories, setSelectedSubCategories] = useState<string[]>(
     []
   );
-  const [mode, setMode] = useState<"post" | "setka">("post");
+  const [mode, setMode] = useState<"post" | "setka">("setka");
+  const [selectedImageIndex, setSelectedImageIndex] = useState<number | null>(
+    null
+  );
 
   // ID'ga qarab filterlash (categoryId string bo'lib keladi, shuning uchun == ishlatamiz yoki Number() qilamiz)
   const filteredProducts = productsData.filter(
@@ -52,11 +56,20 @@ const ChairsPage = () => {
 
           {/* grid setka */}
           <div>
-            <GridSetka productData={finalFilteredProducts} />
+            <GridSetka
+              productData={finalFilteredProducts}
+              onSelectImage={(index: any) => {
+                setSelectedImageIndex(index);
+                setMode("post");
+              }}
+            />
           </div>
         </div>
       ) : (
-        <GridPost productData={filteredProducts} />
+        <GridPost
+          productData={finalFilteredProducts}
+          initialIndex={selectedImageIndex || 0}
+        />
       )}
     </div>
   );
