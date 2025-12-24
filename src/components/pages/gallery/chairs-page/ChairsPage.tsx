@@ -6,6 +6,8 @@ import FilterSection from "./sections/filter-section/FilterSection";
 import GridSetka from "./sections/grid-setka/GridSetka";
 import { productsData } from "@/src/source/inner";
 import { useSearchParams } from "next/navigation";
+import { div } from "framer-motion/client";
+import GridPost from "./sections/grid-post/GridPost";
 
 const ChairsPage = () => {
   const searchParams = useSearchParams();
@@ -14,6 +16,7 @@ const ChairsPage = () => {
   const [selectedSubCategories, setSelectedSubCategories] = useState<string[]>(
     []
   );
+  const [mode, setMode] = useState<"post" | "setka">("post");
 
   // ID'ga qarab filterlash (categoryId string bo'lib keladi, shuning uchun == ishlatamiz yoki Number() qilamiz)
   const filteredProducts = productsData.filter(
@@ -33,22 +36,28 @@ const ChairsPage = () => {
   console.log("Final Filtered Products:", finalFilteredProducts);
 
   return (
-    <div className="chairspage">
-      <BigSlider />
+    <div>
+      {mode === "setka" ? (
+        <div className="chairspage">
+          <BigSlider />
 
-      {/* placeholder */}
+          {/* placeholder */}
 
-      <div ref={filterRef}>
-        <FilterSection
-          productData={filteredProducts}
-          onSelectionChange={setSelectedSubCategories}
-        />
-      </div>
+          <div ref={filterRef}>
+            <FilterSection
+              productData={filteredProducts}
+              onSelectionChange={setSelectedSubCategories}
+            />
+          </div>
 
-      {/* grid setka */}
-      <div>
-        <GridSetka productData={finalFilteredProducts} />
-      </div>
+          {/* grid setka */}
+          <div>
+            <GridSetka productData={finalFilteredProducts} />
+          </div>
+        </div>
+      ) : (
+        <GridPost productData={filteredProducts} />
+      )}
     </div>
   );
 };

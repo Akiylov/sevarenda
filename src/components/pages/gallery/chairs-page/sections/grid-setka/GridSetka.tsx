@@ -20,6 +20,8 @@ type GridSetkaProps = {
 };
 
 const GridSetka = ({ productData }: GridSetkaProps) => {
+  const dataImages = productData.map((product) => product.images);
+  console.log(dataImages);
   console.log(productData);
   const getImageSrc = (index: number) => {
     switch (index % 3) {
@@ -38,7 +40,11 @@ const GridSetka = ({ productData }: GridSetkaProps) => {
       {productData.map((product, index) => (
         <div className="image-container" key={index}>
           <Image
-            src={getImageSrc(index)}
+            src={
+              product.images && product.images.length > 0
+                ? product.images[0]
+                : getImageSrc(index)
+            }
             alt={product.name}
             style={{ objectFit: "cover" }}
           />

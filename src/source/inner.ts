@@ -1,8 +1,19 @@
+import type { StaticImageData } from "next/image";
 import defimage from "@/public/1080х1400.png";
 import def1080 from "@/public/1080x1080.png";
 import def1900 from "@/public/10801900.png";
+import def540 from "@/public/540x950.png";
+import def540900 from "@/public/540x950222.png";
+export interface Product {
+  id: number;
+  categoryId: number;
+  subCategory: string;
+  subImage: string | StaticImageData; // yoki StaticImageData agar next/image ishlatilsa
+  name: string;
+  images: (string | StaticImageData)[]; // yoki StaticImageData[]
+}
 
-export const productsData = [
+export const productsData: Product[] = [
   // --- 1. IDISHLAR (categoryId: 1) ---
   {
     id: 101,
@@ -10,7 +21,7 @@ export const productsData = [
     subCategory: "Tarelka",
     subImage: def1080,
     name: "Lofat Tarelka",
-    images: [def1080, defimage],
+    images: [def540, def540, def540],
   },
   {
     id: 102,
@@ -18,7 +29,7 @@ export const productsData = [
     subCategory: "Piyola",
     subImage: def1080,
     name: "Oltin Piyola",
-    images: [def1080],
+    images: [def540900],
   },
   {
     id: 103,
@@ -35,6 +46,14 @@ export const productsData = [
     subImage: def1080,
     name: "Katta Lagan",
     images: [defimage],
+  },
+  {
+    id: 105,
+    categoryId: 1,
+    subCategory: "Vilka1",
+    subImage: def540,
+    name: "Klassik Vilka",
+    images: [def1900],
   },
 
   // --- 2. STULLAR (categoryId: 2) ---
