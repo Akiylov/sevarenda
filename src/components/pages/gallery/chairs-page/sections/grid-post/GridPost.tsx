@@ -195,6 +195,42 @@ const PostCard = ({
     ? description
     : description.slice(0, DESCRIPTION_LIMIT);
 
+  // const sendToTelegram = () => {
+  //   const sellerUsername = "akiylov";
+  //   const currentImg = product.images[activeIndex];
+  //   const imgPath = typeof currentImg === "string" ? currentImg : (currentImg as any).src;
+
+  //   // Saytingiz manzili bilan to'liq URL hosil qilish
+  //   const fullImageUrl = `${window.location.origin}${imgPath}`;
+
+  //   const message = `Assalomu alaykum! Menga mana shu mahsulot yoqdi:\n\n` +
+  //                   `${fullImageUrl}\n\n` + // Rasm linki tepada tursa, preview chiqadi
+  //                   `📦 Mahsulot: ${product.name}`;
+
+  //   window.open(`https://t.me/${sellerUsername}?text=${encodeURIComponent(message)}`, "_blank");
+  // };
+
+  const sendToTelegram = () => {
+    const sellerUsername = "akiylov";
+    // Hozirgi aktiv rasm URL manzilini olish
+    const currentImg = product.images[activeIndex];
+    const imgUrl =
+      typeof currentImg === "string" ? currentImg : (currentImg as any).src;
+
+    // Xabar matni
+    const message =
+      `Assalomu alaykum! Men ushbu mahsulotni sotib olmoqchiman:\n\n` +
+      `📦 *Mahsulot:* ${product.name}\n` +
+      `🖼 *Rasm:* ${window.location.origin}${imgUrl}`;
+
+    // Telegram havolasini yaratish
+    const telegramUrl = `https://t.me/${sellerUsername}?text=${encodeURIComponent(
+      message
+    )}`;
+
+    // Yangi oynada ochish
+    window.open(telegramUrl, "_blank");
+  };
   return (
     <article className="post-card">
       <header className="post-card__header">
@@ -255,7 +291,7 @@ const PostCard = ({
                         onClick={open}
                         className="post-card__image-wrapper"
                       >
-                        <Image src={src} alt={`${product.name}-${idx}`} />
+                        <Image src={src} alt={`${product.name}-${idx}`} fill />
                       </div>
                     )}
                   </Item>
@@ -266,10 +302,28 @@ const PostCard = ({
         </div>
       </Gallery>
 
-      <div className="post-card__actions">❤️ 💬 📤 🔖</div>
+      {/* <div className="post-card__actions">
+        <div className="card_image-info">
+          <div className="card_image-info__content">
+            <span className="icon">📸</span>
+            <p>
+              Sotib olish uchun <strong>screenshot</strong> qiling va
+              <strong> @akiylov</strong> profiliga yuboring
+            </p>
+          </div>
+        </div>
+        <button
+          onClick={sendToTelegram}
+          className="telegram-send-btn"
+          title="Sotuvchiga yuborish"
+        >
+          ✈️{" "}
+        </button>
+      </div> */}
 
       <div className="post-card__description">
         <span className="post-card__bold">{product.name}</span>
+        <br />
         <span>{visibleText}</span>
         {!expanded && (
           <button onClick={() => setExpanded(true)} className="post-card__more">

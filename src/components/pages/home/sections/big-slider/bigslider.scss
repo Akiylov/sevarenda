@@ -1,0 +1,36 @@
+.bigslider {
+  width: 100%;
+  padding: 10px 0;
+  .custom-slide {
+    width: 300px; /* Slayd eni */
+    height: 130px; /* Standart (aktiv bo'lmagan) balandlik */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #3498db;
+    color: white;
+    border-radius: 12px;
+    font-weight: bold;
+
+    /* Balandlik o'zgarishi yumshoq bo'lishi uchun */
+    transition: height 0.4s ease, transform 0.4s ease;
+    margin-top: 10px; /* Markazlashtirishga yordam beradi */
+  }
+
+  /* FAQAT markazda (aktiv) turgan slayd uchun stillar */
+  .swiper-slide-active.custom-slide {
+    height: 150px; /* Markazdagi balandlik */
+    background: #2ecc71; /* Farqlanishi uchun boshqa rang (ixtiyoriy) */
+    margin-top: 0; /* 150px bo'lganda yuqoriga surilmasligi uchun */
+  }
+
+  /* Slayderning o'zini balandligini moslash */
+  .swiper {
+    height: 150px;
+    display: flex;
+    align-items: center;
+  }
+  .swiper-pagination {
+    display: none;
+  }
+}

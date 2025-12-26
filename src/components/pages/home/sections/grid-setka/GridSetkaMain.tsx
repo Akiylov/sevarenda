@@ -1,11 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import React from "react";
-import "./gridsetka.scss";
+import "./gridsetkaMain.scss";
 import Image from "next/image";
-import defimage from "../../../../../../../public/1080х1400.png";
-import def1080 from "../../../../../../../public/1080x1080.png";
-import def1900 from "../../../../../../../public/10801900.png";
+import def1080 from "./../../../../../../public/1080x1080.png";
 
 type Product = {
   id: number;
@@ -19,7 +17,7 @@ type GridSetkaProps = {
   productData: any[];
 };
 
-const GridSetka = ({
+const GridSetkaMain = ({
   productData,
   onSelectImage,
 }: {
@@ -52,4 +50,4 @@ const GridSetka = ({
     </>
   );
 };
-export default GridSetka;
+export default GridSetkaMain;

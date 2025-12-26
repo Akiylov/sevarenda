@@ -68,7 +68,7 @@ const HighLights = ({ productData, onSelectionChange }: HighLightsProps) => {
             }}
             className="iconBox"
           >
-            <FaList size={20} />
+            {/* <FaList size={20} /> */}
           </div>
         </div>
 

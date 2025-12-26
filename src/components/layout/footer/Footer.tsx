@@ -16,9 +16,7 @@ const Footer = () => {
   const navItems = [
     { icon: GoHomeFill, path: "/" },
     { icon: IoSearch, path: "/search" },
-    { icon: FaRegImage, path: "/gallery" },
     { icon: BsFillGiftFill, path: "/aksiya" },
-    { icon: FaUserCircle, path: "/profile" },
   ];
 
   return (

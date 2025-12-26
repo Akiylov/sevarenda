@@ -4,6 +4,12 @@ import def1080 from "@/public/1080x1080.png";
 import def1900 from "@/public/10801900.png";
 import def540 from "@/public/540x950.png";
 import def540900 from "@/public/540x950222.png";
+import router from "@/public/roter.jpg";
+
+import tsr1 from "@/public/images/1.png";
+import tsr2 from "@/public/images/2.png";
+import tsr3 from "@/public/images/3.png";
+
 export interface Product {
   id: number;
   categoryId: number;
@@ -21,7 +27,7 @@ export const productsData: Product[] = [
     subCategory: "Tarelka",
     subImage: def1080,
     name: "Lofat Tarelka",
-    images: [def540, def540, def540],
+    images: [tsr1, tsr2, tsr3],
   },
   {
     id: 102,
@@ -29,7 +35,7 @@ export const productsData: Product[] = [
     subCategory: "Piyola",
     subImage: def1080,
     name: "Oltin Piyola",
-    images: [def540900],
+    images: [tsr2, defimage],
   },
   {
     id: 103,
@@ -37,7 +43,7 @@ export const productsData: Product[] = [
     subCategory: "Choynak",
     subImage: def1080,
     name: "Klassik Choynak",
-    images: [def1900],
+    images: [tsr1, def540900],
   },
   {
     id: 104,
@@ -45,7 +51,7 @@ export const productsData: Product[] = [
     subCategory: "Lagan",
     subImage: def1080,
     name: "Katta Lagan",
-    images: [defimage],
+    images: [router, tsr2],
   },
   {
     id: 105,

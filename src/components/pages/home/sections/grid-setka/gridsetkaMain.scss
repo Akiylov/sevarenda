@@ -1,4 +1,4 @@
-@use "../../../../../../styles/global-breakpoints.scss" as bp;
+@use "../../../../../styles/global-breakpoints.scss" as bp;
 
 .setka-header {
   background-color: rgb(255, 255, 255);
@@ -8,6 +8,7 @@
   align-items: center;
   border: 1px solid #e0e0e0;
 }
+
 .contentsetka {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
